@@ -1,11 +1,15 @@
 #include "Visual_interface.h"
-
+#include <json/json.h>
+#include <string>
 void Start()
 {
+	Json::Value root;
+	std::string name = "Electronic ticket system for tourist attractions";
 	judgment_err_ = false;
 	settextcolor(RGB(0, 0, 0));
 	settextstyle(30, 0, _T("Î¢ÈíÑÅºÚ"));
-	outtextxy(400, 60, _T("Electronic ticket system for tourist attractions"));
+	//outtextxy(400, 60, _T("Electronic ticket system for tourist attractions"));
+	outtextxy(400, 60, (name.c_str()));
 	outtextxy(600, 200, _T("1.Login"));
 	outtextxy(600, 300, _T("2.Register"));
 	outtextxy(600, 400, _T("3.Quit"));

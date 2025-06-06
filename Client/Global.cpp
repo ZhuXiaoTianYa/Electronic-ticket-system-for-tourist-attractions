@@ -1,6 +1,6 @@
 #include "Visual_interface.h"
 
-
+int sock_global = 0;
 int pos_ = static_cast<int>(Scene::Start_Sc);
 bool judgment_err_ = false;
 const char* start_ = "\
