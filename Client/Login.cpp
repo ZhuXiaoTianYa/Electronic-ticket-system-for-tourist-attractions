@@ -19,29 +19,29 @@ void Login()
     outtextxy(200, 240, _T("Password:"));
 
     // 用来存储账号和密码的数组
-    TCHAR username[64] = { 0 };
-    char _username[64] = { 0 };
-    TCHAR password[64] = { 0 };
-    char _password[64] = { 0 };
-    int  ulen = 0, plen = 0;
+    TCHAR username[64] = {0};
+    char _username[64] = {0};
+    TCHAR password[64] = {0};
+    char _password[64] = {0};
+    int ulen = 0, plen = 0;
 
     // 输入状态：0 表示正在输入账号；1 表示正在输入密码
     int inputStage = 0;
 
     // 账号/密码输入框的起始坐标
     const int inputX = 350, inputY_account = 180, inputY_password = 240;
-    const int maxLen = 50;   // 最多输入字符数
+    const int maxLen = 50; // 最多输入字符数
 
     // 先把光标定位到账号输入框
     int curX = inputX, curY = inputY_account;
     // 为了动态刷新输入内容，需要先画一个“空白区域”来遮盖光标位置／旧文字
     auto clearInputLine = [&](int y)
-        {
-            // 假设一行能够显示最多 maxLen 个字符，每个字符宽度大约 14 像素，往右清 14*maxLen 的区域
-            // 也可以根据实际字体大小调整
-            setfillcolor(WHITE);
-            bar(inputX, y, inputX + 14 * maxLen, y + textheight(_T("W")));
-        };
+    {
+        // 假设一行能够显示最多 maxLen 个字符，每个字符宽度大约 14 像素，往右清 14*maxLen 的区域
+        // 也可以根据实际字体大小调整
+        setfillcolor(WHITE);
+        bar(inputX, y, inputX + 14 * maxLen, y + textheight(_T("W")));
+    };
 
     // 绘制初始状态：账号一行显示光标，密码行先空白
     clearInputLine(inputY_account);
@@ -52,7 +52,7 @@ void Login()
     // 主循环：等待用户输入
     while (true)
     {
-        int ch = _getch();  // 从 <conio.h> 读取一个键
+        int ch = _getch(); // 从 <conio.h> 读取一个键
 
         // 如果是功能键（0 或 0xE0 前缀），再读一次得到实际码；简单做法：跳过
         if (ch == 0 || ch == 0xE0)
@@ -193,15 +193,25 @@ void Login()
         // 其余键全部忽略
     }
 
-    // 到这里，username 与 password 均已输入完毕
-    // 你可以根据需求对它们进行校验。例如：
-    // if ( checkCredentials(username, password) ) { /* 登录成功 */ }
-    // else { /* 登录失败，提示后跳回输入流程 */ }
-
     // 暂时在控制台打印一下，测试效果
     printf("Entered username: %s\n", _username);
     printf("Entered password: %s\n", _password);
-    pos_ = static_cast<int>(Scene::Home_Sc);
-    // 本示例直接返回到上层循环（视情况可以切换到下一个 Scene）
-    // 例如：pos_ = static_cast<int>(Scene::Start_Sc);
+    std::string userid(_username);
+    std::string userpasswd(_password);
+    Login_Wait();
+    bool result = login_request(userid, userpasswd, sock_global);
+    if (result)
+    {
+        id_global = userid;
+        passwd_global = userpasswd;
+        pos_global = static_cast<int>(Scene::Home_Sc);
+        return;
+    }
+    else
+    {
+        Login_Fail();
+        pos_global = static_cast<int>(Scene::Start_Sc);
+        return;
+    }
+    pos_global = static_cast<int>(Scene::Home_Sc);
 }

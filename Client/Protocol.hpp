@@ -16,18 +16,14 @@
 #define LINE_SEP "\r\n"
 #define LINE_SEP_LEN strlen(LINE_SEP)
 
+std::string enLength(const std::string &text);
 
-
-std::string enLength(const std::string& text);
-
-
-bool deLength(std::string& package, std::string* text);
-
+bool deLength(std::string &package, std::string *text);
 
 class Request_Class
 {
 public:
-    static const char* request_deserialize(std::string& in);
+    static const char *request_deserialize(std::string &in);
 };
 
 class Login_Class
@@ -36,26 +32,20 @@ class Login_Class
 
 public:
     Login_Class(std::string account, std::string password, func_t func);
-    
 
     Login_Class();
 
-
     std::string toTaskString();
 
-    bool request_serialize(std::string* out);
+    bool request_serialize(std::string *out);
 
-    bool request_deserialize(std::string& in);
-
+    bool request_deserialize(std::string &in);
 
     void chstatus(bool code);
 
-
-    bool response_serialize(std::string* out);
-
+    bool response_serialize(std::string *out);
 
     bool response_deserialize(std::string in);
-
 
 public:
     std::string _account;
@@ -73,23 +63,17 @@ public:
 
     Register_Class();
 
-
-
     std::string toTaskString();
 
-    bool request_serialize(std::string* out);
+    bool request_serialize(std::string *out);
 
-
-    bool request_deserialize(std::string& in);
-
+    bool request_deserialize(std::string &in);
 
     void chstatus(bool code);
 
+    bool response_serialize(std::string *out);
 
-    bool response_serialize(std::string* out);
-
-    bool response_deserialize(std::string& in);
-
+    bool response_deserialize(std::string &in);
 
 public:
     std::string _name;
@@ -107,23 +91,17 @@ class Areas_Class
 public:
     Areas_Class(std::string aid, func_t func);
 
-
     Areas_Class();
-
 
     std::string toTaskString();
 
-    bool request_serialize(std::string* out);
+    bool request_serialize(std::string *out);
 
+    bool request_deserialize(std::string &in);
 
-    bool request_deserialize(std::string& in);
+    bool response_serialize(std::string *out);
 
-
-    bool response_serialize(std::string* out);
-
-
-    bool response_deserialize(std::string& in);
-
+    bool response_deserialize(std::string &in);
 
 public:
     std::string _name;
@@ -144,20 +122,15 @@ public:
 
     Tickets_Class();
 
-
     std::string toTaskString();
 
-    bool request_serialize(std::string* out);
+    bool request_serialize(std::string *out);
 
+    bool request_deserialize(std::string &in);
 
-    bool request_deserialize(std::string& in);
+    bool response_serialize(std::string *out);
 
-
-    bool response_serialize(std::string* out);
-
-
-    bool response_deserialize(std::string& in);
-
+    bool response_deserialize(std::string &in);
 
 public:
     std::string _aid;
@@ -175,22 +148,17 @@ class Record_Class
 public:
     Record_Class(std::string id, func_t func);
 
-
     Record_Class();
-
 
     std::string toTaskString();
 
-    bool request_serialize(std::string* out);
+    bool request_serialize(std::string *out);
 
+    bool request_deserialize(std::string &in);
 
-    bool request_deserialize(std::string& in);
+    bool response_serialize(std::string *out);
 
-
-    bool response_serialize(std::string* out);
-
-    bool response_deserialize(std::string& in);
-
+    bool response_deserialize(std::string &in);
 
 public:
     std::string _id;
@@ -201,4 +169,4 @@ public:
     func_t _callback;
 };
 
-bool ParseOnePackage(std::string& inbuffer, std::string* text);
+bool ParseOnePackage(std::string &inbuffer, std::string *text);
